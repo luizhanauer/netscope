@@ -1,136 +1,14 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <title>Calculadora IPv4</title>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
-    <link rel="stylesheet" type="text/css"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-</head>
-
-<body class="bg-gray-300">
-    <div class="grid grid-cols-1 lg:grid-cols-2">
-        <div class="bg-gray-800 lg:min-h-screen lg:items-center p-8 sm:p-12">
-            <form id="network-form">
-                <h1 class="text-white text-center text-2xl sm:text-5xl mb-2"> Calculadora IPv4:</h1>
-                <li class="text-white text- text-2xl sm:text-3xl mb-2">Informe o endereço e mascara</li>
-                <label class="font-bold text-gray-500" for="numero-inicial">Endereço IPv4:</label>
-                <div class="flex items-center grid">
-                    <div class="relative">
-                        <input type="text" id="ip-address" name="ip-address"
-                            pattern="\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}"
-                            title="Please enter a valid IP address (e.g. 192.168.0.1)" required
-                            class="h-14 pl-10 pr-20 rounded-lg z-0 focus:shadow focus:outline-none border bg-gray-50 w-full"
-                            placeholder="192.168.0.1" value="192.168.0.1">
-                    </div>
-                </div>
-                <label class="font-bold text-gray-500" for="numero-final">Bits da Máscara:</label>
-                <div class="flex items-center grid">
-                    <div class="relative">
-                        <input type="number" id="netmask-bits" name="netmask-bits" min="1" max="32" required
-                            class="h-14 pl-10 pr-20 rounded-lg z-0 focus:shadow focus:outline-none border bg-gray-50 w-full"
-                            placeholder="24" value="24">
-                    </div>
-                </div>
-
-                <div class="flex items-center grid p-8">
-                    <div class="flex items-center">
-                        <button type="submit"
-                            class="h-10 w-full text-white rounded-lg bg-green-700 hover:bg-green-800 btn"
-                            >Calcular</button>
-                    </div>
-                </div>
-
-            </form>
-            <div class="flex justify-center">
-                <table id="network-table" class="border-collapse border border-slate-400 bg-gray-100">
-                    <thead class="bg-gray-800 text-white">
-                        <tr>
-                            <th class="border border-slate-400 px-4 py-2">Propriedade</th>
-                            <th class="border border-slate-400 px-4 py-2">Valor</th>
-                            <th class="border border-slate-400 px-4 py-2">Binário</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-slate-400">
-                        <tr>
-                            <td class="border border-slate-400 px-4 py-2">Endereço de Rede</td>
-                            <td class="border border-slate-400 px-4 py-2" id="address"></td>
-                            <td class="border border-slate-400 px-4 py-2" id="address-binary"></td>
-                        </tr>
-                        <tr>
-                            <td class="border border-slate-400 px-4 py-2">Máscara de Rede</td>
-                            <td class="border border-slate-400 px-4 py-2" id="netmask"></td>
-                            <td class="border border-slate-400 px-4 py-2" id="netmask-binary"></td>
-                        </tr>
-                        <tr>
-                            <td class="border border-slate-400 px-4 py-2">Rede</td>
-                            <td class="border border-slate-400 px-4 py-2" id="network"></td>
-                            <td class="border border-slate-400 px-4 py-2" id="network-binary"></td>
-                        </tr>
-                        <tr>
-                            <td class="border border-slate-400 px-4 py-2">Endereço de Broadcast</td>
-                            <td class="border border-slate-400 px-4 py-2" id="broadcast-address"></td>
-                            <td class="border border-slate-400 px-4 py-2" id="broadcast-address-binary"></td>
-                        </tr>
-                        <tr>
-                            <td class="border border-slate-400 px-4 py-2">Menor Endereço IP</td>
-                            <td class="border border-slate-400 px-4 py-2" id="min-host"></td>
-                            <td class="border border-slate-400 px-4 py-2" id="min-host-binary"></td>
-                        </tr>
-                        <tr>
-                            <td class="border border-slate-400 px-4 py-2">Maior Endereço IP</td>
-                            <td class="border border-slate-400 px-4 py-2" id="max-host"></td>
-                            <td class="border border-slate-400 px-4 py-2" id="max-host-binary"></td>
-                        </tr>
-                        <tr>
-                            <td class="border border-slate-400 px-4 py-2">Número de Hosts</td>
-                            <td class="border border-slate-400 px-4 py-2" id="num-hosts"></td>
-                            <td class="border border-slate-400 px-4 py-2"></td>
-                        </tr>
-                    </tbody>
-                 </table>
-              </div>
-              
-
-        </div>
-        <div class="lg:min-h-screen lg:flex lg:items-center p-12 lg:p-24 xl:p-48">
-            <div class="flex-grow bg-white shadow-xl rounded-md border border-gray-300 p-8">
-
-                 <table id="results-table" class="table table-striped border-collapse border">
-                    <thead class="bg-gray-100">
-                        <tr>
-                          <th class="px-6 py-3 text-center font-bold">Endereço de Rede</th>
-                          <th class="px-6 py-3 text-center font-bold">Máscara de Rede</th>
-                          <th class="px-6 py-3 text-center font-bold">Rede</th>
-                          <th class="px-6 py-3 text-center font-bold">Endereço de Broadcast</th>
-                          <th class="px-6 py-3 text-center font-bold">Menor Endereço IP</th>
-                          <th class="px-6 py-3 text-center font-bold">Maior Endereço IP</th>
-                          <th class="px-6 py-3 text-center font-bold">Número de Hosts</th>
-                        </tr>
-                      </thead>
-                      <tbody class="bg-white divide-y divide-gray-200">
-                      <!-- aqui serão adicionadas as linhas de resultados dinamicamente -->
-                    </tbody>
-                  </table>
-                  <br>
-                  <button type="button"
-                  class="h-10 w-full text-white rounded-lg bg-red-700 hover:bg-gray-800 btn"
-                  id="clear-table" onclick="LimparTabela()">Limpar Tabela</button>
-                  
-            </div>
-        </div>
-    </div>
-
-    <script src="script.js"></script>
-    <script>
-
-
-
-
-    </script>
-</body>
-
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/src/style.css" rel="stylesheet" />
+    <title>NetScope | Network Analyzer</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
 </html>
