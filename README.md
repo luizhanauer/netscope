@@ -1,33 +1,61 @@
-Calculadora IPv4
-======================
+# 🌐 NetScope | Network Intelligence Suite
 
-Esta é uma simples calculadora IPv4, que recebe um endereço IP e o número de bits da máscara de sub-rede como entrada e retorna vários dados sobre a rede, incluindo o endereço de rede, endereço de broadcast, endereço mínimo e máximo, número de hosts e a própria máscara de sub-rede.
+**NetScope** é uma ferramenta de análise de redes de alta performance projetada para engenheiros de rede e administradores de sistemas. Diferente de calculadoras convencionais, o NetScope oferece uma visão cirúrgica sobre o escopo de sub-redes IPv4 e IPv6, combinando um motor de cálculo VLSM com visualização binária em tempo real.
 
-Como usar
----------
 
-1.  Baixe os arquivos `index.html`, `styles.css` e `script.js` neste repositório.
-2.  Abra o arquivo `index.html` em um navegador web.
-3.  Insira o endereço IP e o número de bits da máscara de sub-rede nos campos apropriados.
-4.  Clique no botão "Calcular" para ver os resultados na tabela abaixo.
-5.  Se desejar limpar a tabela, clique no botão "Limpar".
 
-Validação de entrada
---------------------
+## 🚀 Funcionalidades
 
-O endereço IP inserido deve estar no formato "XXX.XXX.XXX.XXX", com quatro octetos separados por pontos, onde cada octeto deve ser um número inteiro entre 0 e 255.
+- **Cálculo Preciso IPv4/IPv6:** Resultados instantâneos para endereços de rede, broadcast, máscaras wildcard e ranges utilizáveis.
+- **Motor VLSM (Variable Length Subnet Masking):** Divida redes complexas em sub-redes menores com exportação formatada para Excel/Google Sheets.
+- **Visualizador Binário Interativo:** Entenda visualmente a separação entre *Network bits* e *Host bits*.
+- **Identificador de Contexto:** Identificação automática de tipos de rede (RFC 1918, Global Unicast, Link-Local, Loopback, etc).
+- **Histórico Local:** Acesso rápido aos últimos cálculos realizados, armazenados de forma persistente no navegador.
 
-O número de bits da máscara de sub-rede deve ser um número inteiro entre 0 e 32.
+## 🏗️ Arquitetura e Design Patterns
 
-Tecnologias utilizadas
-----------------------
+Este projeto foi construído focando em manutenibilidade e escalabilidade, seguindo padrões rigorosos de engenharia de software:
 
-Esta calculadora foi criada com HTML, CSS e JavaScript puro.
+- **Clean Architecture:** Separação clara entre as regras de domínio (`Domain`) e a camada de interface (`UI/Vue`).
+- **Domain-Driven Design (DDD):** Lógica de cálculo encapsulada em entidades de domínio ricas e testáveis.
+- **Object Calisthenics:** Código escrito seguindo regras de ouro como:
+  - Apenas um nível de indentação por método.
+  - Não uso da palavra-chave `else` (Early Returns).
+  - Encapsulamento de primitivos.
+- **DRY (Don't Repeat Yourself):** Reutilização lógica de funções de parsing e conversão de bits.
 
-Instalação
-----------
+## 🛠️ Tech Stack
 
-Não é necessário instalação para usar esta calculadora IPv4. Basta baixar os arquivos e abri-los em seu navegador.
+- **Framework:** [Vue 3](https://vuejs.org/) (Composition API)
+- **Linguagem:** [TypeScript](https://www.typescriptlang.org/) (Strict Mode)
+- **Build Tool:** [Vite](https://vitejs.dev/)
+- **Estilização:** [Tailwind CSS](https://tailwindcss.com/)
+- **PWA:** [Vite PWA Plugin](https://vite-pwa-org.netlify.app/)
+
+## 📦 Instalação e Desenvolvimento
+
+1. Clone o repositório:
+```bash
+git clone https://github.com/luizhanauer/netscope.git
+```
+
+2. Instale as dependências:
+
+```bash
+npm install
+```
+
+3. Inicie o servidor de desenvolvimento:
+
+```bash
+npm run dev
+```
+
+4. Build para produção:
+
+```bash
+npm run build
+```
 
 Contribuição
 ------------
